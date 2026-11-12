@@ -59,9 +59,27 @@ footer{text-align:center;padding:35px 20px;color:#537184;font-size:12px;border-t
 .product[data-owner-photo="true"] .status{background:#d9f8e5;color:#125c40}
 .edit-footer-note{font-size:12px;color:#365a70;line-height:1.5}
 @media(max-width:580px){.owner-buttons{display:flex;flex-direction:column;align-items:stretch}.owner-action{width:100%}}
+</style><style>
+.upi-payment{border:1px solid #bfdcca;background:#f1fbf5;border-radius:16px;padding:20px;margin:16px 0 22px;box-shadow:0 4px 16px #153f2610}
+.upi-payment h2{margin:0 0 8px;font-size:22px;color:#125334}
+.upi-payment p{margin:6px 0 12px;color:#305544;font-size:14px;line-height:1.55}
+.upi-payment .upi-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:13px}
+.upi-payment .upi-detail{display:inline-flex;flex-direction:column;gap:4px;max-width:100%;overflow-wrap:anywhere}
+.upi-payment .upi-detail small{font-size:12px;color:#53685c}
+.upi-payment .upi-detail strong{font-size:18px;color:#123e2b}
+.upi-payment button,.upi-payment .upi-action{display:inline-flex;align-items:center;justify-content:center;background:#126243;border:0;border-radius:10px;color:#fff;font:inherit;font-size:14px;font-weight:750;text-decoration:none;cursor:pointer;padding:11px 15px}
+.upi-payment button:hover,.upi-payment .upi-action:hover{background:#0d4f36}
+.upi-payment .upi-help{font-size:12px;color:#3f6751;min-height:18px}
+@media(max-width:480px){.upi-payment{padding:15px}.upi-payment .upi-row{align-items:stretch;flex-direction:column}.upi-payment button,.upi-payment .upi-action{width:100%}}
 </style></head>
 <body><header><div class="brand">SPORTS <b>BASKET</b></div><h1>Gear up for <span>every game.</span></h1><div class="sub">Football, badminton and cricket equipment, boots and jerseys. 81 products, with your latest approved selling prices.</div><div class="chips"><span class="chip">81 products</span><span class="chip">⚽ Football · 🏸 Badminton · 🏏 Cricket</span><span class="chip">💳 UPI Payment Only · Prepaid Orders</span><span class="chip">WhatsApp: +91 6357191936 / +91 6357115513</span></div></header>
-<main><div class="proof-banner">PHOTO EDITOR • Correct photos yourself using screenshots or gallery images. Photos you add are embedded inside the downloaded HTML so they will not depend on external photo websites. Existing images are NOT all verified.</div><aside class="note"><strong>Sports Basket — 81 products. Approved prices and photos updated:</strong> Item 12 YONEX MAVIS 350 ₹1,999; Item 21 SG RSD Spark ₹3,299; Item 39 SG Test White Ball ₹3,899. All other products, prices and selected photo references are unchanged. These 3 images are <strong>external online links</strong> (not embedded files) and could become unavailable. Commercial reuse rights have not been verified. Use <strong>Change photo</strong> and <strong>Download Updated HTML</strong> to replace images with your own approved copies.</aside>
+<main><section class="upi-payment" id="payment" aria-label="Sports Basket UPI payment details">
+<h2>💳 UPI Payment Only</h2>
+<p><strong>Cash on Delivery (COD) is not available.</strong> Please confirm your product, delivery charges, and final payable amount with Sports Basket on WhatsApp before paying.</p>
+<div class="upi-row"><div class="upi-detail"><small>Official Sports Basket UPI ID</small><strong id="sportsBasketUpi">6357115513-2@ybl</strong></div><button type="button" id="copySportsBasketUpi">Copy UPI ID</button><a class="upi-action" href="upi://pay?pa=6357115513-2%40ybl&amp;pn=Sports%20Basket&amp;cu=INR">Pay with UPI App</a></div>
+<p class="upi-help" id="sportsBasketUpiStatus" role="status" aria-live="polite">On mobile, use Pay with UPI App, or copy the UPI ID into your payment app. Verify the recipient before sending money.</p>
+<p>After payment, share your transaction reference on WhatsApp. Your order is confirmed only after the store verifies the payment.</p>
+</section><div class="proof-banner">PHOTO EDITOR • Correct photos yourself using screenshots or gallery images. Photos you add are embedded inside the downloaded HTML so they will not depend on external photo websites. Existing images are NOT all verified.</div><aside class="note"><strong>Sports Basket — 81 products. Approved prices and photos updated:</strong> Item 12 YONEX MAVIS 350 ₹1,999; Item 21 SG RSD Spark ₹3,299; Item 39 SG Test White Ball ₹3,899. All other products, prices and selected photo references are unchanged. These 3 images are <strong>external online links</strong> (not embedded files) and could become unavailable. Commercial reuse rights have not been verified. Use <strong>Change photo</strong> and <strong>Download Updated HTML</strong> to replace images with your own approved copies.</aside>
 <section aria-label="Find products" class="controls"><input aria-label="Search products" class="search" id="search" placeholder="Search sports equipment, football boots, jerseys…" type="search"/><div class="filters"><button class="filter active" data-filter="All" type="button">🏆 All products <small>81</small></button><button class="filter" data-filter="Football" type="button">⚽ Football <small>54</small></button><button class="filter" data-filter="Badminton" type="button">🏸 Badminton <small>14</small></button><button class="filter" data-filter="Cricket" type="button">🏏 Cricket <small>13</small></button></div><div aria-live="polite" class="counter" id="counter">Showing 81 products</div></section><section aria-label="Owner photo editor" class="owner-bar" id="ownerPhotoEditor"><div class="owner-head"><h2>📷 Add your own product photos</h2><strong>81 items</strong></div>
 <p><b>Step 1.</b> Find the product below. <b>Step 2.</b> Tap its <b>Change photo</b> button and select a screenshot or photo from your phone or laptop. <b>Step 3.</b> When finished, click <b>Download Updated HTML</b> to permanently save the new photos inside a website file.</p>
 <div class="owner-buttons"><button class="owner-action" id="downloadEditedWebsite" type="button">⬇ Download Updated HTML (with my photos)</button><button class="owner-action" id="showAllForEditing" type="button">Show all 81 products</button></div>
@@ -313,7 +331,7 @@ footer{text-align:center;padding:35px 20px;color:#537184;font-size:12px;border-t
 <div class="photo-area"><img alt="Custom dark grey and black camouflage soccer jersey with TEAMNAME and YOURNAME, white number 10, front and back views — Etsy photo reference" decoding="async" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false;" referrerpolicy="no-referrer" src="https://i.etsystatic.com/35104531/r/il/927daa/6179302477/il_794xN.6179302477_m533.jpg"/><div class="photo-error" hidden=""><span class="lens">▧</span><b>Exact photo needed</b><small>Earlier screenshot was not an accurate single-product photograph.</small></div></div><button class="photo-edit-button" data-item="81" type="button">📷 Change photo · Item 81</button>
 <div class="info"><div class="meta">#81 · Football</div><h3>Custom Dark Grey Football Jersey</h3><div class="desc">Fan-style or custom jersey screenshot reference; not verified official merchandise.</div><div class="foot"><div><span class="price-caption">Your approved price</span><strong class="price">₹1,199</strong></div><span class="status">Selected dark grey #10 jersey reference · online</span></div><a class="buy" href="https://wa.me/916357191936?text=Hello+Sports+Basket%2C+I+want+to+enquire+about+Item+81%3A+Custom+Dark+Grey+Football+Jersey.+Your+listed+price+is+%E2%82%B91%2C199.+Please+confirm+stock%2C+size+and+delivery." rel="noopener noreferrer" target="_blank">Enquire / Order on WhatsApp <span>↗</span></a><a class="photo-search-link" href="https://www.etsy.com/listing/1749113744/custom-soccer-jersey-for-men-women-youth" rel="noopener noreferrer" target="_blank">View selected photo reference</a></div>
 </article></section><p class="empty" hidden="" id="empty">No matching products. Try another search.</p>
-</main><footer>SPORTS BASKET · Independent catalogue · Images are model references and not proof of available stock.<br/>Payment: UPI only (prepaid). Cash on Delivery is not available. Message Sports Basket on WhatsApp to confirm product availability, size, shipping and receive the verified UPI payment details before paying.</footer>
+</main><footer>SPORTS BASKET · Independent catalogue · Images are model references and not proof of available stock.<br/>Payment: UPI only (prepaid). Cash on Delivery is not available. Confirm product availability, final amount and delivery charges on WhatsApp before paying. Official UPI ID: 6357115513-2@ybl. Verify the recipient and share your transaction reference after payment.</footer>
 <script>
 const input=document.getElementById('search');const filters=Array.from(document.querySelectorAll('button.filter'));const products=Array.from(document.querySelectorAll('article.product'));let current='All';
 function refresh(){const term=input.value.trim().toLowerCase();let shown=0;products.forEach(p=>{const okSport=current==='All'||p.dataset.sport===current;const okSearch=p.dataset.name.includes(term);p.hidden=!(okSport&&okSearch);if(!p.hidden)shown++});document.getElementById('counter').textContent='Showing '+shown+' of 81 products';document.getElementById('empty').hidden=shown>0;}
@@ -404,5 +422,27 @@ filters.forEach(f=>f.addEventListener('click',()=>{current=f.dataset.filter;filt
     tell('Showing all 81 products. Select Change photo below each product.');
   });
   if(changes)tell(changes+' owner photo(s) are already embedded in this file.');
+})();
+</script><script>
+(function(){
+  const btn=document.getElementById('copySportsBasketUpi');
+  const info=document.getElementById('sportsBasketUpiStatus');
+  const upi=document.getElementById('sportsBasketUpi').textContent.trim();
+  btn.addEventListener('click',async()=>{
+    try{
+      if(navigator.clipboard&&window.isSecureContext){
+        await navigator.clipboard.writeText(upi);
+      }else{
+        const temp=document.createElement('textarea');
+        temp.value=upi;temp.setAttribute('readonly','');
+        temp.style.position='fixed';temp.style.opacity='0';
+        document.body.appendChild(temp);temp.select();
+        const copied=document.execCommand('copy');
+        temp.remove();
+        if(!copied)throw new Error('Copy unavailable');
+      }
+      info.textContent='UPI ID copied. Confirm the final amount before paying.';
+    }catch(e){info.textContent='Copy manually: '+upi;}
+  });
 })();
 </script></body></html>
