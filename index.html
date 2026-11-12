@@ -417,7 +417,7 @@ body.order-dialog-open{overflow:hidden}
 <footer>SPORTS BASKET · Independent catalogue · Images are model references and not proof of available stock.<br/>Payment: UPI only (prepaid). Cash on Delivery is not available. Confirm product availability, final amount and delivery charges on WhatsApp before paying. Official UPI ID: 6357115513-2@ybl. Verify the recipient and share your transaction reference after payment.</footer>
 <script>
 const input=document.getElementById('search');const filters=Array.from(document.querySelectorAll('button.filter'));const products=Array.from(document.querySelectorAll('article.product'));let current='All';
-function refresh(){const term=input.value.trim().toLowerCase();let shown=0;products.forEach(p=>{const okSport=current==='All'||p.dataset.sport===current;const okSearch=p.dataset.name.includes(term);p.hidden=!(okSport&&okSearch);if(!p.hidden)shown++});document.getElementById('counter').textContent='Showing '+shown+' of 81 products';document.getElementById('empty').hidden=shown>0;}
+function refresh(){const term=input.value.trim().toLowerCase();let shown=0;products.forEach((p,index)=>{const okSport=current==='All'||p.dataset.sport===current;const searchable=[p.dataset.name||'',p.querySelector('.desc')?.textContent||'','item '+(index+1),'#'+(index+1)].join(' ').toLowerCase();const okSearch=!term||searchable.includes(term);p.hidden=!(okSport&&okSearch);if(!p.hidden)shown++});document.getElementById('counter').textContent='Showing '+shown+' of '+products.length+' products';document.getElementById('empty').hidden=shown>0;}
 filters.forEach(f=>f.addEventListener('click',()=>{current=f.dataset.filter;filters.forEach(b=>b.classList.toggle('active',b===f));refresh()}));input.addEventListener('input',refresh);
 </script><script>
 (function(){
@@ -487,8 +487,18 @@ filters.forEach(f=>f.addEventListener('click',()=>{current=f.dataset.filter;filt
     } catch(err){tell('Could not add photo: '+err.message);}
   });
   document.getElementById('downloadEditedWebsite').addEventListener('click',()=>{
-    // Include current DOM attributes and embedded picture data so this file works offline.
-    const full='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    // Preserve uploaded photos, but remove temporary filter/cart/error UI state from the exported file.
+    const snapshot=document.documentElement.cloneNode(true);
+    snapshot.querySelectorAll('article.product').forEach(card=>{card.hidden=false;});
+    snapshot.querySelectorAll('button.filter').forEach(button=>{button.classList.toggle('active',button.dataset.filter==='All');});
+    const search=snapshot.querySelector('#search');if(search)search.setAttribute('value','');
+    const counter=snapshot.querySelector('#counter');if(counter)counter.textContent='Showing '+cards.length+' products';
+    const noResults=snapshot.querySelector('#empty');if(noResults)noResults.hidden=true;
+    const cartOverlay=snapshot.querySelector('#cartOverlay');if(cartOverlay)cartOverlay.hidden=true;
+    const body=snapshot.querySelector('body');if(body)body.classList.remove('cart-dialog-open');
+    snapshot.querySelectorAll('.photo-area img').forEach(img=>{img.hidden=false;});
+    snapshot.querySelectorAll('.photo-error').forEach(message=>{message.hidden=true;});
+    const full='<!DOCTYPE html>\n'+snapshot.outerHTML;
     const blob=new Blob([full],{type:'text/html;charset=utf-8'});
     const url=URL.createObjectURL(blob);
     const link=document.createElement('a');
@@ -635,7 +645,13 @@ cartList.addEventListener('click',event=>{
  if(b.dataset.action==='increase')item.qty=Math.min(30,item.qty+1);
  if(b.dataset.action==='decrease')item.qty=Math.max(1,item.qty-1);
  if(b.dataset.action==='remove')cart=cart.filter(it=>it.id!==id);
+ const action=b.dataset.action;
  saveCart();refresh();
+ // Keep keyboard focus on the same control after rebuilding the cart lines.
+ if(action==='increase'||action==='decrease'){
+  const next=Array.from(cartList.querySelectorAll('button[data-action]')).find(button=>button.dataset.id===String(id)&&button.dataset.action===action);
+  if(next)next.focus();
+ }
 });
 cartList.addEventListener('input',event=>{
  if(!event.target.matches('input.cart-size'))return;
