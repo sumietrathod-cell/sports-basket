@@ -71,6 +71,24 @@ footer{text-align:center;padding:35px 20px;color:#537184;font-size:12px;border-t
 .upi-payment button:hover,.upi-payment .upi-action:hover{background:#0d4f36}
 .upi-payment .upi-help{font-size:12px;color:#3f6751;min-height:18px}
 @media(max-width:480px){.upi-payment{padding:15px}.upi-payment .upi-row{align-items:stretch;flex-direction:column}.upi-payment button,.upi-payment .upi-action{width:100%}}
+
+/* Sports Basket: customer order details collected before WhatsApp */
+.order-overlay{position:fixed;inset:0;background:rgba(8,30,42,.76);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+.order-dialog{width:min(100%,540px);max-height:calc(100vh - 32px);overflow:auto;background:#fff;color:#152f40;border-radius:18px;box-shadow:0 18px 60px #0005;padding:22px}
+.order-dialog h2{font-size:23px;margin:0 0 6px}
+.order-dialog .order-lead{font-size:13px;color:#5b6d7b;margin:0 0 16px;line-height:1.5}
+.order-dialog .order-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.order-dialog .order-close{background:#f0f3f5;color:#34505e;border:0;border-radius:9px;font-size:23px;width:38px;height:38px;cursor:pointer;flex-shrink:0}
+.order-dialog label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:750;margin-bottom:12px}
+.order-dialog input,.order-dialog textarea{width:100%;border:1px solid #c2d0d9;border-radius:10px;padding:12px;font:inherit;font-size:15px;background:#fff;color:#173547}
+.order-dialog textarea{min-height:90px;resize:vertical}
+.order-dialog input:focus,.order-dialog textarea:focus{outline:2px solid #1c879b;outline-offset:1px}
+.order-dialog input[readonly]{background:#f1f5f7;color:#234658}
+.order-dialog .order-submit{display:block;width:100%;border:0;border-radius:11px;padding:14px 12px;color:#fff;background:#137d57;cursor:pointer;font:inherit;font-weight:800}
+.order-dialog .order-submit:hover{background:#0e6345}
+.order-dialog .order-privacy{font-size:11px;color:#576f79;line-height:1.5;margin-top:12px}
+body.order-dialog-open{overflow:hidden}
+@media(max-width:520px){.order-overlay{align-items:flex-start;padding:10px}.order-dialog{max-height:calc(100dvh - 20px);padding:17px}.order-dialog h2{font-size:21px}}
 </style></head>
 <body><header><div class="brand">SPORTS <b>BASKET</b></div><h1>Gear up for <span>every game.</span></h1><div class="sub">Football, badminton and cricket equipment, boots and jerseys. 81 products, with your latest approved selling prices.</div><div class="chips"><span class="chip">81 products</span><span class="chip">⚽ Football · 🏸 Badminton · 🏏 Cricket</span><span class="chip">💳 UPI Payment Only · Prepaid Orders</span><span class="chip">WhatsApp: +91 6357191936 / +91 6357115513</span></div></header>
 <main><section class="upi-payment" id="payment" aria-label="Sports Basket UPI payment details">
@@ -331,7 +349,22 @@ footer{text-align:center;padding:35px 20px;color:#537184;font-size:12px;border-t
 <div class="photo-area"><img alt="Custom dark grey and black camouflage soccer jersey with TEAMNAME and YOURNAME, white number 10, front and back views — Etsy photo reference" decoding="async" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false;" referrerpolicy="no-referrer" src="https://i.etsystatic.com/35104531/r/il/927daa/6179302477/il_794xN.6179302477_m533.jpg"/><div class="photo-error" hidden=""><span class="lens">▧</span><b>Exact photo needed</b><small>Earlier screenshot was not an accurate single-product photograph.</small></div></div><button class="photo-edit-button" data-item="81" type="button">📷 Change photo · Item 81</button>
 <div class="info"><div class="meta">#81 · Football</div><h3>Custom Dark Grey Football Jersey</h3><div class="desc">Fan-style or custom jersey screenshot reference; not verified official merchandise.</div><div class="foot"><div><span class="price-caption">Your approved price</span><strong class="price">₹1,199</strong></div><span class="status">Selected dark grey #10 jersey reference · online</span></div><a class="buy" href="https://wa.me/916357191936?text=Hello+Sports+Basket%2C+I+want+to+enquire+about+Item+81%3A+Custom+Dark+Grey+Football+Jersey.+Your+listed+price+is+%E2%82%B91%2C199.+Please+confirm+stock%2C+size+and+delivery." rel="noopener noreferrer" target="_blank">Enquire / Order on WhatsApp <span>↗</span></a><a class="photo-search-link" href="https://www.etsy.com/listing/1749113744/custom-soccer-jersey-for-men-women-youth" rel="noopener noreferrer" target="_blank">View selected photo reference</a></div>
 </article></section><p class="empty" hidden="" id="empty">No matching products. Try another search.</p>
-</main><footer>SPORTS BASKET · Independent catalogue · Images are model references and not proof of available stock.<br/>Payment: UPI only (prepaid). Cash on Delivery is not available. Confirm product availability, final amount and delivery charges on WhatsApp before paying. Official UPI ID: 6357115513-2@ybl. Verify the recipient and share your transaction reference after payment.</footer>
+</main>
+<div class="order-overlay" id="orderDialogOverlay" hidden>
+ <section class="order-dialog" role="dialog" aria-modal="true" aria-labelledby="orderDialogTitle" aria-describedby="orderDialogLead">
+  <div class="order-head"><div><h2 id="orderDialogTitle">Complete your order details</h2><p class="order-lead" id="orderDialogLead">Enter your information first. We will prepare your WhatsApp order message.</p></div><button class="order-close" id="orderClose" type="button" aria-label="Close order form">×</button></div>
+  <form id="sportsOrderForm">
+   <label for="orderName">Full name <input id="orderName" name="customer-name" type="text" autocomplete="name" maxlength="80" minlength="2" required placeholder="Your full name"></label>
+   <label for="orderPhone">Mobile / WhatsApp number <input id="orderPhone" name="customer-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" required placeholder="e.g. 9876543210"></label>
+   <label for="orderAddress">Full delivery address <textarea id="orderAddress" name="address" autocomplete="street-address" minlength="8" maxlength="500" required placeholder="House / flat, street, area, city, state and PIN code"></textarea></label>
+   <label for="orderProductName">Selected product <input id="orderProductName" name="product" type="text" readonly></label>
+   <label for="orderProductPrice">Item price (INR) <input id="orderProductPrice" name="price" type="text" readonly></label>
+   <button class="order-submit" type="submit">Continue to WhatsApp Order</button>
+   <p class="order-privacy">UPI payment only. Delivery charges and stock are confirmed by the store. Your details are not saved on this website; they are placed in a WhatsApp message that you must choose to send. Your order is not confirmed until the store replies.</p>
+  </form>
+ </section>
+</div>
+<footer>SPORTS BASKET · Independent catalogue · Images are model references and not proof of available stock.<br/>Payment: UPI only (prepaid). Cash on Delivery is not available. Confirm product availability, final amount and delivery charges on WhatsApp before paying. Official UPI ID: 6357115513-2@ybl. Verify the recipient and share your transaction reference after payment.</footer>
 <script>
 const input=document.getElementById('search');const filters=Array.from(document.querySelectorAll('button.filter'));const products=Array.from(document.querySelectorAll('article.product'));let current='All';
 function refresh(){const term=input.value.trim().toLowerCase();let shown=0;products.forEach(p=>{const okSport=current==='All'||p.dataset.sport===current;const okSearch=p.dataset.name.includes(term);p.hidden=!(okSport&&okSearch);if(!p.hidden)shown++});document.getElementById('counter').textContent='Showing '+shown+' of 81 products';document.getElementById('empty').hidden=shown>0;}
@@ -445,4 +478,98 @@ filters.forEach(f=>f.addEventListener('click',()=>{current=f.dataset.filter;filt
     }catch(e){info.textContent='Copy manually: '+upi;}
   });
 })();
-</script></body></html>
+</script>
+<script>
+(function(){
+  'use strict';
+  const overlay=document.getElementById('orderDialogOverlay');
+  const form=document.getElementById('sportsOrderForm');
+  const nameField=document.getElementById('orderName');
+  const phoneField=document.getElementById('orderPhone');
+  const addressField=document.getElementById('orderAddress');
+  const productField=document.getElementById('orderProductName');
+  const priceField=document.getElementById('orderProductPrice');
+  const closeButton=document.getElementById('orderClose');
+  let selectedCard=null;
+  let previousFocus=null;
+  function closeOrder(){
+    overlay.hidden=true;
+    document.body.classList.remove('order-dialog-open');
+    if(previousFocus && typeof previousFocus.focus==='function')previousFocus.focus();
+    selectedCard=null;
+  }
+  function openOrder(card){
+    selectedCard=card;
+    previousFocus=document.activeElement;
+    productField.value=card.querySelector('h3').textContent.trim();
+    priceField.value=card.querySelector('strong.price').textContent.trim();
+    form.reset();
+    // Reset clears even readonly values; set the selected item and price again.
+    productField.value=card.querySelector('h3').textContent.trim();
+    priceField.value=card.querySelector('strong.price').textContent.trim();
+    phoneField.setCustomValidity('');
+    overlay.hidden=false;
+    document.body.classList.add('order-dialog-open');
+    nameField.focus();
+  }
+  document.querySelectorAll('article.product a.buy').forEach(link=>{
+    const card=link.closest('article.product');
+    // This button must collect delivery details BEFORE opening WhatsApp.
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    link.setAttribute('href','#order-details');
+    link.setAttribute('aria-haspopup','dialog');
+    link.innerHTML='Order Now — Enter Your Details <span>↗</span>';
+    link.addEventListener('click',event=>{
+      event.preventDefault();
+      openOrder(card);
+    });
+  });
+  closeButton.addEventListener('click',closeOrder);
+  overlay.addEventListener('click',event=>{if(event.target===overlay)closeOrder();});
+  document.addEventListener('keydown',event=>{
+    if(overlay.hidden)return;
+    if(event.key==='Escape'){event.preventDefault();closeOrder();}
+    if(event.key==='Tab'){
+      const focusable=[...overlay.querySelectorAll('button:not([disabled]),input:not([disabled]),textarea:not([disabled])')].filter(el=>el.getClientRects().length);
+      if(!focusable.length)return;
+      const first=focusable[0],last=focusable[focusable.length-1];
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+    }
+  });
+  phoneField.addEventListener('input',()=>phoneField.setCustomValidity(''));
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(!selectedCard)return;
+    const phone=phoneField.value.trim();
+    const digits=phone.replace(/\D/g,'');
+    if(digits.length<8||digits.length>15){
+      phoneField.setCustomValidity('Please enter a valid mobile number with 8 to 15 digits.');
+      phoneField.reportValidity();
+      return;
+    }
+    phoneField.setCustomValidity('');
+    if(!form.reportValidity())return;
+    const meta=selectedCard.querySelector('.meta');
+    const item=meta?meta.textContent.trim():'';
+    const message=[
+      'Hello Sports Basket, I would like to order:',
+      'Product: '+productField.value,
+      'Item: '+item,
+      'Listed item price: '+priceField.value,
+      'Quantity: 1',
+      '',
+      'Customer name: '+nameField.value.trim(),
+      'Customer phone: '+phone,
+      'Delivery address: '+addressField.value.trim(),
+      '',
+      'Please confirm availability, delivery charges and final amount.',
+      'Payment: UPI only (COD not available).'
+    ].join('\n');
+    // WhatsApp does not send automatically. The customer must tap Send.
+    window.location.assign('https://wa.me/916357191936?text='+encodeURIComponent(message));
+  });
+})();
+</script>
+</body></html>
